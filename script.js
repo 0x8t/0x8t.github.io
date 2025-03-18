@@ -2,12 +2,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Theme switching
     const themeToggle = document.querySelector('.theme-toggle');
+    const themeIndicator = document.querySelector('.theme-indicator');
     const body = document.body;
 
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         body.setAttribute('data-theme', savedTheme);
+        themeIndicator.textContent = savedTheme.charAt(0).toUpperCase() + savedTheme.slice(1);
     }
 
     // Add click event listener to theme toggle
@@ -18,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            themeIndicator.textContent = newTheme.charAt(0).toUpperCase() + newTheme.slice(1);
         });
     }
 
@@ -94,4 +97,20 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Header scroll effect
+    const header = document.querySelector('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        lastScroll = currentScroll;
+    });
 }); 
